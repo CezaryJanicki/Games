@@ -1,0 +1,4 @@
+rootProject.name = 'Games'
+include 'BlackJack'
+include 'TickTackToe'
+
