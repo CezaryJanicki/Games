@@ -1,49 +1,29 @@
-
 import java.util.Scanner;
 
 public class Game {
+    private final UserCommunication userCommunication;
+
+    public Game(UserCommunication userCommunication) {
+        this.userCommunication = userCommunication;
+    }
+
     public void start() {
-        System.out.println("Please tell me your name: ");
-        Scanner scan = new Scanner(System.in);
-        //String firstName = scan.nextLine();
-        //System.out.println("Welcome " + firstName);
-        System.out.println("Please specify no of rounds for the game: ");
-       // int noOfRounds = scan.nextInt();
-        System.out.println("How to play the game:");
-        System.out.println(" 1 - Rock");
-        System.out.println(" 2 - Paper");
-        System.out.println(" 3 - Scissors");
-        System.out.println(" x - End the game");
-        System.out.println(" n - Start new game");
 
-        //String choice = scan.next();
+        GameSettings gameSettings = this.userCommunication.promptUserSettings(); //this out
+        userCommunication.showLegend();
 
-        System.out.println("Let's play the game.");
-        System.out.println("Please provide your move:");
-        System.out.println("1 for Rock, 2 for Paper, 3 for Scissors.");
-        int choice = scan.nextInt();
+        GameResult winnerChosen = GameResult.NO_WINNER;
+        GameState gameState = new GameState(gameSettings.getNoOfRounds());
 
-        Moves.playerMove(choice);
-        Moves.computerMove();
 
-        switch (scan.next()) {
-            case "1":
-                System.out.println("Pressing 1 gives Rock.");
-                break;
-            case "2":
-                System.out.println("Pressing 2 gives Paper.");
-                break;
-            case "3":
-                System.out.println("Pressing 3 gives Scissors.");
-                break;
-            case "x":
-                System.out.println("Pressing x - ends the game.");
-                break;
-            case "n":
-                System.out.println("Pressing n - starts new game");
-                break;
-            default:
-                System.out.println("Default");
+        while (winnerChosen == GameResult.NO_WINNER) {
+            //... case n/ case x;
+            //continue - case n;
+            // pakiet serCommunication ; pakiet - review;
+            // testy game state; 3 metody
+            // game mockito;
+            gameState.addRound(Moves.computerMove(), Moves.playerMove(userCommunication.getUserChoice()));
+            winnerChosen = gameState.selectWinner();
         }
     }
 
@@ -68,5 +48,3 @@ public class Game {
         }
     }
 }
-      //  klawisz x - zakończenie gry, poprzedzone pytaniem "Czy na pewno zakończyć grę?",
-      //  klawisz n - uruchomienie gry od nowa, poprzedzone pytaniem "Czy na pewno zakończyć aktualną grę?",

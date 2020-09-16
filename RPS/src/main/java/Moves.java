@@ -8,10 +8,10 @@ public class Moves {
         SCISSORS;
     }
 
-    public static ValidMoves playerMove(int move) {
-        if (move == 1) return ValidMoves.ROCK;
-        if (move == 2) return ValidMoves.PAPER;
-        if (move == 3) return ValidMoves.SCISSORS;
+    public static ValidMoves playerMove(UserChoice move) {
+        if (move == UserChoice.ROCK) return ValidMoves.ROCK;
+        if (move == UserChoice.PAPER) return ValidMoves.PAPER;
+        if (move == UserChoice.SCISSORS) return ValidMoves.SCISSORS;
     }
 
     public static ValidMoves computerMove() {
