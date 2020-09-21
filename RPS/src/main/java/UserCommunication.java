@@ -6,7 +6,7 @@ public class UserCommunication {
 
     public GameSettings promptUserSettings() {
         System.out.println("Please tell me your name: ");
-        String firstName = scan.nextLine();
+        String firstName = scan.next();
         System.out.println("Welcome " + firstName);
         System.out.println("Please specify no of rounds for the game: ");
         int noOfRounds = scan.nextInt();
@@ -43,7 +43,34 @@ public class UserCommunication {
         }
     }
 
-    public showGameResult(GameResult) {
-        //if ( GR == x) -> y;
+    public void showGameResult(GameResult gameResult) {
+        switch (gameResult) {
+            case PLAYER_WINS:
+                System.out.println("You have won the game, congratulations!");
+            case COMPUTER_WINS:
+                System.out.println("Computer has won the game, sorry.");
+            case DRAW:
+                System.out.println("It's a draw. Try again.");
+            case NO_WINNER:
+                System.out.println("No one won.");
+            default:
+                System.out.println("Wrong choice.");
+        }
+    }
+
+
+    public boolean acknowledgeEnd() {
+        System.out.println("Do you really want to end the game?");
+        System.out.println("Press y for yes, n for no.");
+        while (true) {
+            switch (scan.next()) {
+                case "y":
+                    return true;
+                case "n":
+                    return false;
+                default:
+                    System.out.println("Please choose an option");
+            }
+        }
     }
 }

@@ -1,7 +1,8 @@
-import java.util.Scanner;
-
 public class Game {
     private final UserCommunication userCommunication;
+    private GameSettings gameSettings;
+    private GameResult winnerChosen;
+    private GameState gameState;
 
     public Game(UserCommunication userCommunication) {
         this.userCommunication = userCommunication;
@@ -9,42 +10,46 @@ public class Game {
 
     public void start() {
 
-        GameSettings gameSettings = this.userCommunication.promptUserSettings(); //this out
-        userCommunication.showLegend();
-
-        GameResult winnerChosen = GameResult.NO_WINNER;
-        GameState gameState = new GameState(gameSettings.getNoOfRounds());
-
+        initialize();
 
         while (winnerChosen == GameResult.NO_WINNER) {
-            //... case n/ case x;
-            //continue - case n;
-            // pakiet serCommunication ; pakiet - review;
             // testy game state; 3 metody
             // game mockito;
-            gameState.addRound(Moves.computerMove(), Moves.playerMove(userCommunication.getUserChoice()));
+
+            UserChoice userChoice = userCommunication.getUserChoice();
+            if (userChoice == UserChoice.NEW_GAME) {
+                initialize();
+                continue;
+            }
+            if (userChoice == UserChoice.EXIT_GAME) {
+                endGame();
+                userCommunication.showLegend();
+                continue;
+            }
+            gameState.addRound(Moves.computerMove(), Moves.playerMove(userChoice));
             winnerChosen = gameState.selectWinner();
+
         }
+        System.out.println("Winner of the whole game is " + winnerChosen);
+
+    }
+
+    private void initialize() {
+        gameSettings = userCommunication.promptUserSettings();
+        userCommunication.showLegend();
+
+        winnerChosen = GameResult.NO_WINNER;
+        gameState = new GameState(gameSettings.getNoOfRounds());
     }
 
     public void startNewGame() {
-        System.out.println("Do you really want to end the actual game?");
-        this.start();
+        System.out.println("Starting new game.");
+        //this.start();
     }
 
     public void endGame() {
-        System.out.println("Do you really want to end the game?");
-        System.out.println("Press y for yes, n for no.");
-        Scanner scan = new Scanner(System.in);
-        switch (scan.next()) {
-            case "y":
-                System.out.println("The game has ended.");
-            case "n":
-                System.out.println("The game continues.");
-                this.start();
-            default:
-                System.out.println("Please choose an option");
-                this.endGame();
+        if (userCommunication.acknowledgeEnd()) {
+            System.exit(0);
         }
     }
 }
