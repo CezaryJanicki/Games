@@ -1,4 +1,6 @@
 rootProject.name = 'Games'
 include 'BlackJack'
 include 'TickTackToe'
+include 'TickTackToeTest1'
+include 'JavaFX Playground'
 
