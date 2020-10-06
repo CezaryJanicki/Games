@@ -26,7 +26,11 @@ public class Game {
                 userCommunication.showLegend();
                 continue;
             }
-            gameState.addRound(Moves.computerMove(), Moves.playerMove(userChoice));
+            Moves.ValidMoves computerMove = Moves.computerMove();
+            Moves.ValidMoves playerMove = Moves.playerMove(userChoice);
+            userCommunication.showComputerMove(computerMove);
+
+            gameState.addRound(computerMove, playerMove);
             winnerChosen = gameState.selectWinner();
 
         }
@@ -40,11 +44,6 @@ public class Game {
 
         winnerChosen = GameResult.NO_WINNER;
         gameState = new GameState(gameSettings.getNoOfRounds());
-    }
-
-    public void startNewGame() {
-        System.out.println("Starting new game.");
-        //this.start();
     }
 
     public void endGame() {

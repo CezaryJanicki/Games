@@ -73,4 +73,9 @@ public class UserCommunication {
             }
         }
     }
+
+    public void showComputerMove(Moves.ValidMoves computerMove) {
+        System.out.println("Computer has chosen a move");
+        System.out.println(computerMove);
+    }
 }

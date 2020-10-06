@@ -21,8 +21,7 @@ public class Moves {
     public static ValidMoves computerMove() {
         Random randomMove = new Random();
         ValidMoves computerMove = ValidMoves.values()[randomMove.nextInt(ValidMoves.values().length)];
-        System.out.println("Computer has chosen a move");
-        System.out.println(computerMove);
+
         return computerMove;
     }
 

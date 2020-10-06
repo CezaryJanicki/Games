@@ -1,21 +1,29 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class GameState {
     private final int noOfRounds;
     private int humanPoints = 0;
     private int computerPoints = 0;
     private int whichRound = 0;
-
+    private static Map<Moves.ValidMoves, Moves.ValidMoves> winsWith = new HashMap<>();
+        static {
+            winsWith.put(Moves.ValidMoves.PAPER, Moves.ValidMoves.ROCK);
+            winsWith.put(Moves.ValidMoves.SCISSORS, Moves.ValidMoves.PAPER);
+            winsWith.put(Moves.ValidMoves.ROCK, Moves.ValidMoves.SCISSORS);
+        }
 
     public GameState(int noOfRounds) {
         this.noOfRounds = noOfRounds;
     }
 
     public void addRound(Moves.ValidMoves computer, Moves.ValidMoves human) {
-        if (computer == Moves.ValidMoves.PAPER && human == Moves.ValidMoves.ROCK) { computerPoints++; }
-        if (computer == Moves.ValidMoves.ROCK && human == Moves.ValidMoves.SCISSORS) { computerPoints++; }
-        if (computer == Moves.ValidMoves.SCISSORS && human == Moves.ValidMoves.PAPER) { computerPoints++; }
-        if (computer == Moves.ValidMoves.PAPER && human == Moves.ValidMoves.SCISSORS) { humanPoints++; }
-        if (computer == Moves.ValidMoves.ROCK && human == Moves.ValidMoves.PAPER) { humanPoints++; }
-        if (computer == Moves.ValidMoves.SCISSORS && human == Moves.ValidMoves.ROCK) { humanPoints++; }
+
+        if (winsWith.get(computer) == human) {
+            computerPoints++;
+        } else if (winsWith.get(human) == computer) {
+            humanPoints++;
+        }
         whichRound++;
     }
 
@@ -28,13 +36,8 @@ public class GameState {
             return GameResult.COMPUTER_WINS;
         } else if (humanPoints == computerPoints) {
             return GameResult.DRAW;
-        } else
+        } else {
             return GameResult.NO_WINNER;
-    }
-
-    public void resetGame() {
-        humanPoints = 0;
-        computerPoints = 0;
-        whichRound = 0;
+        }
     }
 }
