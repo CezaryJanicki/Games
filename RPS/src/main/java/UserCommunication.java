@@ -74,8 +74,12 @@ public class UserCommunication {
         }
     }
 
-    public void showComputerMove(Moves.ValidMoves computerMove) {
+    public void showComputerMove(Moves.ValidMove computerMove) {
         System.out.println("Computer has chosen a move");
         System.out.println(computerMove);
+    }
+
+    public void endWinnerNotify(GameResult winnerChosen) {
+        System.out.println("Winner of the whole game is " + winnerChosen);
     }
 }

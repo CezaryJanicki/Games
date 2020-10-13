@@ -1,26 +1,25 @@
-import java.sql.SQLOutput;
 import java.util.Random;
 
 public class Moves {
 
-    enum ValidMoves {
+    enum ValidMove {
         ROCK,
         PAPER,
         SCISSORS;
     }
 
-    public static ValidMoves playerMove(UserChoice move) {
+    public static ValidMove playerMove(UserChoice move) {
         System.out.println("Player has chosen " + move);
         if (move == UserChoice.ROCK) {
-            return ValidMoves.ROCK;
+            return ValidMove.ROCK;
         } else if (move == UserChoice.PAPER) {
-            return ValidMoves.PAPER;
-        } else return ValidMoves.SCISSORS;
+            return ValidMove.PAPER;
+        } else return ValidMove.SCISSORS;
     }
 
-    public static ValidMoves computerMove() {
+    public static ValidMove computerMove() {
         Random randomMove = new Random();
-        ValidMoves computerMove = ValidMoves.values()[randomMove.nextInt(ValidMoves.values().length)];
+        ValidMove computerMove = ValidMove.values()[randomMove.nextInt(ValidMove.values().length)];
 
         return computerMove;
     }

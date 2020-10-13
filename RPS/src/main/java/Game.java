@@ -26,17 +26,19 @@ public class Game {
                 userCommunication.showLegend();
                 continue;
             }
-            Moves.ValidMoves computerMove = Moves.computerMove();
-            Moves.ValidMoves playerMove = Moves.playerMove(userChoice);
+            Moves.ValidMove computerMove = Moves.computerMove();
+            Moves.ValidMove playerMove = Moves.playerMove(userChoice);
             userCommunication.showComputerMove(computerMove);
 
             gameState.addRound(computerMove, playerMove);
             winnerChosen = gameState.selectWinner();
 
         }
-        System.out.println("Winner of the whole game is " + winnerChosen);
+        userCommunication.endWinnerNotify(winnerChosen);
 
     }
+
+
 
     private void initialize() {
         gameSettings = userCommunication.promptUserSettings();

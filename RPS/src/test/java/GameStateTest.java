@@ -1,18 +1,14 @@
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.junit.Assert.assertEquals;
-
-@RunWith(JUnit4.class)
 public class GameStateTest {
     @Test
     public void shouldScissorsWinWithPaper() {
         //Given
         GameState gameState = new GameState(1);
         //When
-        gameState.addRound(Moves.ValidMoves.SCISSORS, Moves.ValidMoves.PAPER);
+        gameState.addRound(Moves.ValidMove.SCISSORS, Moves.ValidMove.PAPER);
         //Then
         assertEquals(GameResult.COMPUTER_WINS, gameState.selectWinner());
     }
@@ -22,7 +18,7 @@ public class GameStateTest {
         //Given
         GameState gameState = new GameState(1);
         //When
-        gameState.addRound(Moves.ValidMoves.ROCK, Moves.ValidMoves.SCISSORS);
+        gameState.addRound(Moves.ValidMove.ROCK, Moves.ValidMove.SCISSORS);
         //Then
         assertEquals(GameResult.COMPUTER_WINS, gameState.selectWinner());
     }
@@ -32,7 +28,7 @@ public class GameStateTest {
         //Given
         GameState gameState = new GameState(1);
         //When
-        gameState.addRound(Moves.ValidMoves.PAPER, Moves.ValidMoves.ROCK);
+        gameState.addRound(Moves.ValidMove.PAPER, Moves.ValidMove.ROCK);
         //Then
         assertEquals(GameResult.COMPUTER_WINS, gameState.selectWinner());
     }
@@ -42,14 +38,24 @@ public class GameStateTest {
         //Given
         GameState gameState = new GameState(2);
         //When
-        gameState.addRound(Moves.ValidMoves.SCISSORS, Moves.ValidMoves.PAPER);
+        gameState.addRound(Moves.ValidMove.SCISSORS, Moves.ValidMove.PAPER);
         //Then
         assertEquals(GameResult.NO_WINNER, gameState.selectWinner());
         //When
-        gameState.addRound(Moves.ValidMoves.SCISSORS, Moves.ValidMoves.PAPER);
+        gameState.addRound(Moves.ValidMove.SCISSORS, Moves.ValidMove.PAPER);
         //Then
         assertEquals(GameResult.COMPUTER_WINS, gameState.selectWinner());
     }
 
-//3pary
+    @Test
+    public void shouldThereBeDraw() {
+        //Given
+        GameState gameState = new GameState(2);
+        //When
+        gameState.addRound(Moves.ValidMove.PAPER, Moves.ValidMove.PAPER);
+        gameState.addRound(Moves.ValidMove.SCISSORS, Moves.ValidMove.SCISSORS);
+        //Then
+        assertEquals(GameResult.DRAW, gameState.selectWinner());
+    }
+
 }
